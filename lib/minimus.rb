@@ -1,4 +1,4 @@
-require "minimus/version"
+require_relative 'version'
 
 class Minimus
 
