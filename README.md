@@ -20,7 +20,17 @@ Or install it yourself as:
     $ gem install minimus
 
 ## Usage
-
+```ruby
+state = Minimus.new(:new, :updated, :destroyed)
+state.initial_state
+=> :new
+state.current_state
+=> :new
+state.move(:updated)
+=> true
+state.current_state
+=> :updated
+```
 
 ## Development
 
