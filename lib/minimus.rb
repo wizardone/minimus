@@ -8,4 +8,12 @@ class Minimus
     @states = states
     @initial_state = states.first
   end
+
+  def move(new_state)
+    current_state = new_state
+  end
+
+  def move!(new_state)
+    raise
+  end
 end
