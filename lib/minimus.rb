@@ -14,11 +14,21 @@ class Minimus
   end
 
   def move(new_state)
+    return false unless move_possible?(new_state)
     self.current_state = new_state
   end
 
   def move!(new_state)
-    raise TransitionError, "unallowed transition from #{current_state} to #{new_state}"
+    unless move_possible?(new_state)
+      raise TransitionError, %Q{unallowed transition from
+         #{current_state} to #{new_state}}
+    end
     self.current_state = new_state
+  end
+
+  private
+
+  def move_possible?(new_state)
+    states[states.index(current_state) + 1] == new_state
   end
 end

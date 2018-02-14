@@ -4,22 +4,24 @@ RSpec.describe Minimus do
     expect(Minimus::VERSION).not_to be nil
   end
 
+  let(:minimus) { described_class.new(:first, :second, :third) }
   it "accepts an array of states" do
-    minimus = described_class.new(:first, :second, :third)
-
     expect(minimus.states).to match_array([:first, :second, :third])
     expect(minimus.initial_state).to eq(:first)
   end
 
-  it "moves to a new state" do
-    minimus = described_class.new(:first, :second, :third)
+  it "moves to a new state if possible" do
     minimus.move(:second)
 
     expect(minimus.current_state).to eq(:second)
   end
 
-  it "raises an error" do
-    minimus = described_class.new(:first, :second, :third)
+  it "returns false if move to new state is not possible" do
+    expect(minimus.move(:third)).to be false
+    expect(minimus.current_state).to eq(:first)
+  end
+
+  it "raises an error if move to new state is not possible" do
     expect {
       minimus.move!(:third)
     }.to raise_error(Minimus::TransitionError)

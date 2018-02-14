@@ -1,7 +1,6 @@
 # Minimus
 Minimalistic state machine for Ruby. If you want something really simple
-that is 97% less complex that most state machines out there give it a
-try.
+that is 97% less complex...
 
 ## Installation
 
