@@ -1,5 +1,5 @@
 # Minimus
-Minimalistic state machine for Ruby. If you want something really simple
+Minimalistic predictable state machine for Ruby. If you want something really simple
 that is 97% less complex...
 
 ## Installation
@@ -26,9 +26,13 @@ state.initial_state
 state.current_state
 => :new
 state.move(:updated)
-=> true
 state.current_state
 => :updated
+state.move!(:illegal)
+=> Minimus::TransitionError
+state.move!(:destroyed)
+state.current_state
+=> :destroyed
 ```
 
 ## Development

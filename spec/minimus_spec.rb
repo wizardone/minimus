@@ -1,10 +1,10 @@
-require 'byebug'
 RSpec.describe Minimus do
   it "has a version number" do
     expect(Minimus::VERSION).not_to be nil
   end
 
   let(:minimus) { described_class.new(:first, :second, :third) }
+
   it "accepts an array of states" do
     expect(minimus.states).to match_array([:first, :second, :third])
     expect(minimus.initial_state).to eq(:first)
