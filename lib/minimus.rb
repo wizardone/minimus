@@ -1,5 +1,5 @@
 require_relative 'version'
-
+require 'byebug'
 class Minimus
 
   TransitionError = Class.new(StandardError)
@@ -16,6 +16,8 @@ class Minimus
   def move(new_state)
     return false unless move_possible?(new_state)
     self.current_state = new_state
+
+    yield if block_given?
   end
 
   def move!(new_state)
@@ -24,6 +26,8 @@ class Minimus
          #{current_state} to #{new_state}}
     end
     self.current_state = new_state
+
+    yield if block_given?
   end
 
   private

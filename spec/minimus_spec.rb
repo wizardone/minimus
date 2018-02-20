@@ -16,6 +16,21 @@ RSpec.describe Minimus do
     expect(minimus.current_state).to eq(:second)
   end
 
+  it 'calls the callback if given' do
+    _object = Object.new
+    _object.instance_eval do
+      def custom_callback
+        "TEST"
+      end
+    end
+
+    expect(_object).to receive(:custom_callback)
+
+    minimus.move(:second) do
+      _object.custom_callback
+    end
+  end
+
   it "returns false if move to new state is not possible" do
     expect(minimus.move(:third)).to be false
     expect(minimus.current_state).to eq(:first)
