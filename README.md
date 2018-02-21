@@ -1,6 +1,8 @@
 # Minimus
-Minimalistic predictable state machine for Ruby. If you want something really simple
-that is 97% less complex...
+[![Build Status](https://travis-ci.org/wizardone/minimus.svg?branch=master)](https://travis-ci.org/wizardone/minimus)
+
+Minimalistic predictable sequential state machine for Ruby. If you want something
+really simple.
 
 ## Installation
 
@@ -19,12 +21,16 @@ Or install it yourself as:
     $ gem install minimus
 
 ## Usage
+All you need to do is to provide a list of states, the first one will be the
+default initial state.
 ```ruby
 state = Minimus.new(:new, :updated, :destroyed)
 state.initial_state
 => :new
 state.current_state
 => :new
+state.move(:destroyed)
+=> false
 state.move(:updated)
 state.current_state
 => :updated

@@ -1,5 +1,5 @@
 require_relative 'version'
-require 'byebug'
+
 class Minimus
 
   TransitionError = Class.new(StandardError)
