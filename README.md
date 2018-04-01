@@ -47,6 +47,16 @@ state.move(:updated) do
   puts "Callback"
 end
 ```
+
+If you want to be slightly more unpredictable you can define your transitions:
+```ruby
+state.can(:new, possible: :destroyed)
+state.current_state
+=> :new
+state.move(:destroyed)
+state.current_state
+=> :destroyed
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
