@@ -4,13 +4,14 @@ class Minimus
 
   TransitionError = Class.new(StandardError)
 
-  attr_reader :states, :initial_state
+  attr_reader :states, :initial_state, :possibilities
   attr_accessor :current_state
 
   def initialize(*states)
     @states = states
     @initial_state = states.first
     @current_state = initial_state
+    @possibilities = {}
   end
 
   def move(new_state)
@@ -28,6 +29,10 @@ class Minimus
     self.current_state = new_state
 
     yield if block_given?
+  end
+
+  def can(state, possible:)
+
   end
 
   private

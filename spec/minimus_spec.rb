@@ -5,12 +5,16 @@ RSpec.describe Minimus do
 
   let(:minimus) { described_class.new(:first, :second, :third) }
 
-  it "accepts an array of states" do
+  it 'has a hash of possible state changes' do
+    expect(minimus.possibilities).to eq({})
+  end
+
+  it 'accepts an array of states' do
     expect(minimus.states).to match_array([:first, :second, :third])
     expect(minimus.initial_state).to eq(:first)
   end
 
-  it "moves to a new state if possible" do
+  it 'moves to a new state if possible' do
     minimus.move(:second)
 
     expect(minimus.current_state).to eq(:second)
