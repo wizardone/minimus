@@ -32,7 +32,10 @@ class Minimus
   end
 
   def can(state, possible:)
+    # Some error maybe?
+    return unless Array(possible).all? { |value| states.include?(value) }
 
+    possibilities[state] = Array(possible)
   end
 
   private
