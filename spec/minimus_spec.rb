@@ -15,10 +15,17 @@ RSpec.describe Minimus do
     expect(minimus.initial_state).to eq(:first)
   end
 
-  it 'moves to a new state if possible' do
+  it 'moves to a new sequential state if possible' do
     minimus.move(:second)
 
     expect(minimus.current_state).to eq(:second)
+  end
+
+  it 'moves to a new state if possible' do
+    minimus.can(:first, possible: :forth)
+    minimus.move(:forth)
+
+    expect(minimus.current_state).to eq(:forth)
   end
 
   it 'calls the callback if given' do

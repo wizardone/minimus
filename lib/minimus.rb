@@ -41,6 +41,7 @@ class Minimus
   private
 
   def move_possible?(new_state)
-    states[states.index(current_state) + 1] == new_state
+    states[states.index(current_state) + 1] == new_state ||
+    possibilities[current_state]&.include?(new_state)
   end
 end
