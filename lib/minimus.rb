@@ -32,16 +32,19 @@ class Minimus
   end
 
   def can(state, possible:)
-    # Some error maybe?
-    return unless Array(possible).all? { |value| states.include?(value) }
+    possible_array = Array(possible)
+    return unless possible_array.all? { |value| states.include?(value) }
 
-    possibilities[state] = Array(possible)
+    possibilities[state] = possible_array
   end
 
   private
 
   def move_possible?(new_state)
-    states[states.index(current_state) + 1] == new_state ||
-      possibilities[current_state]&.include?(new_state)
+    if state_possibilities = possibilities[current_state]
+      state_possibilities.include?(new_state)
+    else
+      states[states.index(current_state) + 1] == new_state
+    end
   end
 end
