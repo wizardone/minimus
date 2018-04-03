@@ -11,7 +11,7 @@ RSpec.describe Minimus do
   end
 
   it 'accepts an array of states' do
-    expect(minimus.states).to match_array([:first, :second, :third, :forth])
+    expect(minimus.states).to match_array(%I[first second third forth])
     expect(minimus.initial_state).to eq(:first)
   end
 
@@ -57,13 +57,13 @@ RSpec.describe Minimus do
   it 'can add a state transition possibility' do
     minimus.can(:first, possible: :third)
 
-    expect(minimus.possibilities).to eq({first: [:third]})
+    expect(minimus.possibilities).to eq(first: [:third])
   end
 
   it 'can add multiple transition possibilities' do
-    minimus.can(:first, possible: [:third, :forth])
+    minimus.can(:first, possible: %I[third forth])
 
-    expect(minimus.possibilities).to eq({first: [:third, :forth]})
+    expect(minimus.possibilities).to eq(first: %I[third forth])
   end
 
   it 'does not add possibility if it is not in the defined states' do

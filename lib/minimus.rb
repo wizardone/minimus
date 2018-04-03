@@ -23,8 +23,8 @@ class Minimus
 
   def move!(new_state)
     unless move_possible?(new_state)
-      raise TransitionError, %Q{unallowed transition from
-         #{current_state} to #{new_state}}
+      raise TransitionError, %(unallowed transition from
+         #{current_state} to #{new_state})
     end
     self.current_state = new_state
 
@@ -42,6 +42,6 @@ class Minimus
 
   def move_possible?(new_state)
     states[states.index(current_state) + 1] == new_state ||
-    possibilities[current_state]&.include?(new_state)
+      possibilities[current_state]&.include?(new_state)
   end
 end
