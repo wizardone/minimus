@@ -1,19 +1,31 @@
 RSpec.describe Minimus do
-  it "has a version number" do
+
+  it 'has a version number' do
     expect(Minimus::VERSION).not_to be nil
   end
 
-  let(:minimus) { described_class.new(:first, :second, :third) }
+  let(:minimus) { described_class.new(:first, :second, :third, :forth) }
 
-  it "accepts an array of states" do
-    expect(minimus.states).to match_array([:first, :second, :third])
+  it 'has a hash of possible state changes' do
+    expect(minimus.possibilities).to eq({})
+  end
+
+  it 'accepts an array of states' do
+    expect(minimus.states).to match_array(%I[first second third forth])
     expect(minimus.initial_state).to eq(:first)
   end
 
-  it "moves to a new state if possible" do
+  it 'moves to a new sequential state if possible' do
     minimus.move(:second)
 
     expect(minimus.current_state).to eq(:second)
+  end
+
+  it 'moves to a new state if possible' do
+    minimus.can(:first, possible: :forth)
+    minimus.move(:forth)
+
+    expect(minimus.current_state).to eq(:forth)
   end
 
   it 'calls the callback if given' do
@@ -31,14 +43,32 @@ RSpec.describe Minimus do
     end
   end
 
-  it "returns false if move to new state is not possible" do
+  it 'returns false if move to new state is not possible' do
     expect(minimus.move(:third)).to be false
     expect(minimus.current_state).to eq(:first)
   end
 
-  it "raises an error if move to new state is not possible" do
+  it 'raises an error if move to new state is not possible' do
     expect {
       minimus.move!(:third)
     }.to raise_error(Minimus::TransitionError)
+  end
+
+  it 'can add a state transition possibility' do
+    minimus.can(:first, possible: :third)
+
+    expect(minimus.possibilities).to eq(first: [:third])
+  end
+
+  it 'can add multiple transition possibilities' do
+    minimus.can(:first, possible: %I[third forth])
+
+    expect(minimus.possibilities).to eq(first: %I[third forth])
+  end
+
+  it 'does not add possibility if it is not in the defined states' do
+    minimus.can(:first, possible: :bollock)
+
+    expect(minimus.possibilities).to eq({})
   end
 end
